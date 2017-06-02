@@ -24,6 +24,6 @@
 	"detain/softaculous-licensing": "*"
     },
     "autoload": {
-        "psr-4": {"Detain\\MyAdminVpsSoftaculous\": "src/"}
+        "psr-4": {"Detain\\MyAdminVpsSoftaculous\\": "src/"}
     }
 }
