@@ -15,7 +15,7 @@ return [
 	'version' => '1.0.0',
 	'type' => 'addon',
 	'hooks' => [
-		'vps.load_addons' => ['Detain\MyAdminVpsSoftaculous', 'Load'],
+		'vps.load_addons' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Load'],
 		/* 'function.requirements' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Requirements'],
 		'licenses.settings' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Settings'],
 		'licenses.activate' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Activate'],
