@@ -16,8 +16,8 @@ return [
 	'type' => 'addon',
 	'hooks' => [
 		'vps.load_addons' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Load'],
+		'vps.settings' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Settings'],
 		/* 'function.requirements' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Requirements'],
-		'licenses.settings' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Settings'],
 		'licenses.activate' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Activate'],
 		'licenses.change_ip' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'ChangeIp'],
 		'ui.menu' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Menu'] */
