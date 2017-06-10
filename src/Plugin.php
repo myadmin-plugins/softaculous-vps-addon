@@ -15,7 +15,13 @@ class Plugin {
 		$addon = new \Addon();
 		$addon->set_module('vps')->set_text('Softaculous')->set_cost(VPS_SOFTACULOUS_COST)
 			->set_require_ip(true)->set_enable(function() {
+				$service_info = $service_order->get_service_info();
+				$settings = get_module_settings($service_order->get_module());
 				require_once 'include/licenses/license.functions.inc.php';
+				myadmin_log($module, 'info', 'activating softnoc', __LINE__, __FILE__);
+				$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
+				myadmin_log($module, 'info', json_encode($noc->buy($service_info[$settings['PREFIX'] . '_ip'], '1M', 2, $GLOBALS['tf']->accounts->cross_reference($service_info[$settings['PREFIX'] . '_custid']), 1)), __LINE__, __FILE__);
+				$GLOBALS['tf']->history->add($settings['TABLE'], 'add_softaculous', $service_info[$settings['PREFIX'].'_id'], $service_info[$settings['PREFIX'].'_ip'], $service_info[$settings['PREFIX'].'_custid']);
 			})->set_disable(function() {
 			})->register();
 		$service->add_addon($addon);
