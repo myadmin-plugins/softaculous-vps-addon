@@ -18,8 +18,8 @@ class Plugin {
 
 	public static function Hooks() {
 		return [
-			'vps.load_addons' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Load'],
-			'vps.settings' => ['Detain\MyAdminVpsSoftaculous\Plugin', 'Settings'],
+			'vps.load_addons' => [__CLASS__, 'Load'],
+			'vps.settings' => [__CLASS__, 'Settings'],
 		];
 	}
 
