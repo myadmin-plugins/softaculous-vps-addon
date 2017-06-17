@@ -38,23 +38,23 @@ class Plugin {
 	}
 
 	public static function Enable($service_order) {
-		$service_info = $service_order->get_service_info();
+		$serviceInfo = $service_order->getServiceInfo();
 		$settings = get_module_settings($service_order->get_module());
 		require_once 'include/licenses/license.functions.inc.php';
 		myadmin_log($module, 'info', 'activating softnoc', __LINE__, __FILE__);
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
-		myadmin_log($module, 'info', json_encode($noc->buy($service_info[$settings['PREFIX'] . '_ip'], '1M', 2, $GLOBALS['tf']->accounts->cross_reference($service_info[$settings['PREFIX'] . '_custid']), 1)), __LINE__, __FILE__);
-		$GLOBALS['tf']->history->add($settings['TABLE'], 'add_softaculous', $service_info[$settings['PREFIX'].'_id'], $service_info[$settings['PREFIX'].'_ip'], $service_info[$settings['PREFIX'].'_custid']);
+		myadmin_log($module, 'info', json_encode($noc->buy($serviceInfo[$settings['PREFIX'] . '_ip'], '1M', 2, $GLOBALS['tf']->accounts->cross_reference($serviceInfo[$settings['PREFIX'] . '_custid']), 1)), __LINE__, __FILE__);
+		$GLOBALS['tf']->history->add($settings['TABLE'], 'add_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
 	}
 
 	public static function Disable($service_order) {
-		$service_info = $service_order->get_service_info();
+		$serviceInfo = $service_order->getServiceInfo();
 		$settings = get_module_settings($service_order->get_module());
 		require_once 'include/licenses/license.functions.inc.php';
 		myadmin_log($module, 'info', 'deactivating softnoc', __LINE__, __FILE__);
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
-		myadmin_log($module, 'info', json_encode($noc->cancel('', $service_info[$settings['PREFIX'] . '_ip'])), __LINE__, __FILE__);
-		$GLOBALS['tf']->history->add($settings['TABLE'], 'del_softaculous', $service_info[$settings['PREFIX'].'_id'], $service_info[$settings['PREFIX'].'_ip'], $service_info[$settings['PREFIX'].'_custid']);
+		myadmin_log($module, 'info', json_encode($noc->cancel('', $serviceInfo[$settings['PREFIX'] . '_ip'])), __LINE__, __FILE__);
+		$GLOBALS['tf']->history->add($settings['TABLE'], 'del_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
 	}
 
 	public static function Settings(GenericEvent $event) {
