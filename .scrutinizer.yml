@@ -6,6 +6,7 @@ filter:
 build:
     tests:
         override:
+            - composer update --with-dependencies -v -o
             -
                 command: 'vendor/bin/phpunit --bootstrap tests/bootstrap.php tests/ -v --coverage-clover clover.xml --whitelist src/'
                 coverage:
