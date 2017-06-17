@@ -31,10 +31,10 @@ class Plugin {
 			->set_text('Softaculous')
 			->set_cost(VPS_SOFTACULOUS_COST)
 			->set_require_ip(true)
-			->set_enable(['Detain\MyAdminVpsSoftaculous\Plugins', 'Enable'])
-			->set_disable(['Detain\MyAdminVpsSoftaculous\Plugins', 'Disable'])
+			->set_enable([__CLASS__, 'Enable'])
+			->set_disable([__CLASS__, 'Disable'])
 			->register();
-		$service_order->add_addon($addon);
+		$service->add_addon($addon);
 	}
 
 	public static function Enable($service_order) {
