@@ -16,6 +16,11 @@ build:
 build:
     environment:
         php: 7.0.6
+    dependencies:
+        override:
+            - composer clear-cache
+            - composer self-update
+            - composer update --with-dependencies -v -o
     tests:
         override:
             - eslint-run "public_html/js/*js"
