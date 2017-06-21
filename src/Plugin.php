@@ -37,9 +37,9 @@ class Plugin {
 		$service->add_addon($addon);
 	}
 
-	public static function Enable(\Service_Order $service_order) {
-		$serviceInfo = $service_order->getServiceInfo();
-		$settings = get_module_settings($service_order->get_module());
+	public static function Enable(\Service_Order $serviceOrder) {
+		$serviceInfo = $serviceOrder->getServiceInfo();
+		$settings = get_module_settings($serviceOrder->get_module());
 		require_once 'include/licenses/license.functions.inc.php';
 		myadmin_log($module, 'info', 'activating softnoc', __LINE__, __FILE__);
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
@@ -47,9 +47,9 @@ class Plugin {
 		$GLOBALS['tf']->history->add($settings['TABLE'], 'add_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
 	}
 
-	public static function Disable(\Service_Order $service_order) {
-		$serviceInfo = $service_order->getServiceInfo();
-		$settings = get_module_settings($service_order->get_module());
+	public static function Disable(\Service_Order $serviceOrder) {
+		$serviceInfo = $serviceOrder->getServiceInfo();
+		$settings = get_module_settings($serviceOrder->get_module());
 		require_once 'include/licenses/license.functions.inc.php';
 		myadmin_log($module, 'info', 'deactivating softnoc', __LINE__, __FILE__);
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
