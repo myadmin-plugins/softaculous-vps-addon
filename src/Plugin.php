@@ -31,13 +31,13 @@ class Plugin {
 			->set_text('Softaculous')
 			->set_cost(VPS_SOFTACULOUS_COST)
 			->set_require_ip(true)
-			->set_enable([__CLASS__, 'Enable'])
-			->set_disable([__CLASS__, 'Disable'])
+			->set_enable([__CLASS__, 'doEnable'])
+			->set_disable([__CLASS__, 'doDisable'])
 			->register();
 		$service->add_addon($addon);
 	}
 
-	public static function Enable(\Service_Order $serviceOrder) {
+	public static function doEnable(\Service_Order $serviceOrder) {
 		$serviceInfo = $serviceOrder->getServiceInfo();
 		$settings = get_module_settings($serviceOrder->get_module());
 		require_once 'include/licenses/license.functions.inc.php';
@@ -47,7 +47,7 @@ class Plugin {
 		$GLOBALS['tf']->history->add($settings['TABLE'], 'add_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
 	}
 
-	public static function Disable(\Service_Order $serviceOrder) {
+	public static function doDisable(\Service_Order $serviceOrder) {
 		$serviceInfo = $serviceOrder->getServiceInfo();
 		$settings = get_module_settings($serviceOrder->get_module());
 		require_once 'include/licenses/license.functions.inc.php';
