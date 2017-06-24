@@ -41,9 +41,9 @@ class Plugin {
 		$serviceInfo = $serviceOrder->getServiceInfo();
 		$settings = get_module_settings(self::$module);
 		require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
-		myadmin_log($module, 'info', 'activating softnoc', __LINE__, __FILE__);
+		myadmin_log(self::$module, 'info', 'activating softnoc', __LINE__, __FILE__);
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
-		myadmin_log($module, 'info', json_encode($noc->buy($serviceInfo[$settings['PREFIX'] . '_ip'], '1M', 2, $GLOBALS['tf']->accounts->cross_reference($serviceInfo[$settings['PREFIX'] . '_custid']), 1)), __LINE__, __FILE__);
+		myadmin_log(self::$module, 'info', json_encode($noc->buy($serviceInfo[$settings['PREFIX'] . '_ip'], '1M', 2, $GLOBALS['tf']->accounts->cross_reference($serviceInfo[$settings['PREFIX'] . '_custid']), 1)), __LINE__, __FILE__);
 		$GLOBALS['tf']->history->add($settings['TABLE'], 'add_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
 	}
 
@@ -51,16 +51,15 @@ class Plugin {
 		$serviceInfo = $serviceOrder->getServiceInfo();
 		$settings = get_module_settings(self::$module);
 		require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
-		myadmin_log($module, 'info', 'deactivating softnoc', __LINE__, __FILE__);
+		myadmin_log(self::$module, 'info', 'deactivating softnoc', __LINE__, __FILE__);
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
-		myadmin_log($module, 'info', json_encode($noc->cancel('', $serviceInfo[$settings['PREFIX'] . '_ip'])), __LINE__, __FILE__);
+		myadmin_log(self::$module, 'info', json_encode($noc->cancel('', $serviceInfo[$settings['PREFIX'] . '_ip'])), __LINE__, __FILE__);
 		$GLOBALS['tf']->history->add($settings['TABLE'], 'del_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
 	}
 
 	public static function getSettings(GenericEvent $event) {
-		$module = 'vps';
 		$settings = $event->getSubject();
-		$settings->add_text_setting($module, 'Addon Costs', 'vps_softaculous_cost', 'VPS Softaculous License:', 'This is the cost for purchasing a softaculous license on top of a VPS.', $settings->get_setting('VPS_SOFTACULOUS_COST'));
+		$settings->add_text_setting(self::$module, 'Addon Costs', 'vps_softaculous_cost', 'VPS Softaculous License:', 'This is the cost for purchasing a softaculous license on top of a VPS.', $settings->get_setting('VPS_SOFTACULOUS_COST'));
 	}
 
 }
