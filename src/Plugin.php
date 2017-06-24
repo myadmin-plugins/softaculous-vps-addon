@@ -18,8 +18,8 @@ class Plugin {
 
 	public static function getHooks() {
 		return [
-			'vps.load_addons' => [__CLASS__, 'getAddon'],
-			'vps.settings' => [__CLASS__, 'getSettings'],
+			self::$module.'.load_addons' => [__CLASS__, 'getAddon'],
+			self::$module.'.settings' => [__CLASS__, 'getSettings'],
 		];
 	}
 
@@ -27,7 +27,7 @@ class Plugin {
 		$service = $event->getSubject();
 		function_requirements('class.Addon');
 		$addon = new \Addon();
-		$addon->setModule('vps')
+		$addon->setModule(self::$module)
 			->set_text('Softaculous')
 			->set_cost(VPS_SOFTACULOUS_COST)
 			->set_require_ip(true)
@@ -39,7 +39,7 @@ class Plugin {
 
 	public static function doEnable(\Service_Order $serviceOrder, $repeatInvoiceId, $regexMatch = false) {
 		$serviceInfo = $serviceOrder->getServiceInfo();
-		$settings = get_module_settings($serviceOrder->getModule());
+		$settings = get_module_settings(self::$module);
 		require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
 		myadmin_log($module, 'info', 'activating softnoc', __LINE__, __FILE__);
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
@@ -49,7 +49,7 @@ class Plugin {
 
 	public static function doDisable(\Service_Order $serviceOrder) {
 		$serviceInfo = $serviceOrder->getServiceInfo();
-		$settings = get_module_settings($serviceOrder->getModule());
+		$settings = get_module_settings(self::$module);
 		require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
 		myadmin_log($module, 'info', 'deactivating softnoc', __LINE__, __FILE__);
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
