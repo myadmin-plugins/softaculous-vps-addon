@@ -39,7 +39,7 @@ class Plugin {
 
 	public static function doEnable(\Service_Order $serviceOrder) {
 		$serviceInfo = $serviceOrder->getServiceInfo();
-		$settings = get_module_settings($serviceOrder->get_module());
+		$settings = get_module_settings($serviceOrder->getModule());
 		require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
 		myadmin_log($module, 'info', 'activating softnoc', __LINE__, __FILE__);
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
@@ -49,7 +49,7 @@ class Plugin {
 
 	public static function doDisable(\Service_Order $serviceOrder) {
 		$serviceInfo = $serviceOrder->getServiceInfo();
-		$settings = get_module_settings($serviceOrder->get_module());
+		$settings = get_module_settings($serviceOrder->getModule());
 		require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
 		myadmin_log($module, 'info', 'deactivating softnoc', __LINE__, __FILE__);
 		$noc = new \Detain\MyAdminSoftaculous\SOFT_NOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
