@@ -47,7 +47,7 @@ class Plugin {
 		$GLOBALS['tf']->history->add($settings['TABLE'], 'add_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
 	}
 
-	public static function doDisable(\Service_Order $serviceOrder) {
+	public static function doDisable(\Service_Order $serviceOrder, $repeatInvoiceId, $regexMatch = FALSE) {
 		$serviceInfo = $serviceOrder->getServiceInfo();
 		$settings = get_module_settings(self::$module);
 		require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
@@ -55,6 +55,13 @@ class Plugin {
 		$noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
 		myadmin_log(self::$module, 'info', json_encode($noc->cancel('', $serviceInfo[$settings['PREFIX'].'_ip'])), __LINE__, __FILE__);
 		$GLOBALS['tf']->history->add($settings['TABLE'], 'del_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
+		$email = $settings['TBLNAME'].' ID: '.$serviceInfo[$settings['PREFIX'].'_id'].'<br>'.$settings['TBLNAME'].' Hostname: '.$serviceInfo[$settings['PREFIX'].'_hostname'].'<br>Invoice: '.$repeatInvoiceId.'<br>Description: '.$repeat_invoice->getDescription().'<br>';
+		$subject = $settings['TBLNAME'].' '.$repeat_invoice->getService().' Canceled Softaculous';
+		$headers = '';
+		$headers .= 'MIME-Version: 1.0'.EMAIL_NEWLINE;
+		$headers .= 'Content-type: text/html; charset=UTF-8'.EMAIL_NEWLINE;
+		$headers .= 'From: '.$settings['TITLE'].' <'.$settings['EMAIL_FROM'].'>'.EMAIL_NEWLINE;
+		admin_mail($subject, $email, $headers, false, 'admin_email_vps_softaculous_canceled.tpl');
 	}
 
 	public static function getSettings(GenericEvent $event) {
