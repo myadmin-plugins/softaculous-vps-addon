@@ -61,7 +61,7 @@ class Plugin {
 		$headers .= 'MIME-Version: 1.0'.EMAIL_NEWLINE;
 		$headers .= 'Content-type: text/html; charset=UTF-8'.EMAIL_NEWLINE;
 		$headers .= 'From: '.$settings['TITLE'].' <'.$settings['EMAIL_FROM'].'>'.EMAIL_NEWLINE;
-		admin_mail($subject, $email, $headers, false, 'admin_email_vps_softaculous_canceled.tpl');
+		admin_mail($subject, $email, $headers, FALSE, 'admin_email_vps_softaculous_canceled.tpl');
 	}
 
 	public static function getSettings(GenericEvent $event) {
