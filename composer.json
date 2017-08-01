@@ -1,34 +1,41 @@
 {
-    "name": "detain/myadmin-softaculous-vps-addon",
+    "name": "detain\/myadmin-softaculous-vps-addon",
     "type": "myadmin-plugin",
     "description": "Softaculous Addon for VPS Module in MyAdmin",
-    "keywords": ["softaculous","administration","license"],
+    "keywords": [
+        "softaculous",
+        "administration",
+        "license"
+    ],
     "license": "LGPL-2.1",
     "authors": [
         {
             "name": "Joe Huss",
-            "homepage": "https://my.interserver.net/"
+            "homepage": "https:\/\/my.interserver.net\/"
         }
     ],
     "config": {
-        "bin-dir": "vendor/bin",
+        "bin-dir": "vendor\/bin",
         "minimum-stability": "dev"
     },
     "require": {
         "php": ">=5.0.0",
         "ext-soap": "*",
-    "symfony/event-dispatcher": "*",
-    "detain/myadmin-plugin-installer": "dev-master",
-    "detain/myadmin-softaculous-licensing": "*"
+        "symfony\/event-dispatcher": "*",
+        "detain\/myadmin-plugin-installer": "dev-master",
+        "detain\/myadmin-softaculous-licensing": "*",
+        "roave\/security-advisories": "dev-master"
     },
     "require-dev": {
-        "phpunit/phpunit": "*",
-        "vlucas/phpdotenv": "*",
-        "codeclimate/php-test-reporter": "dev-master",
-        "satooshi/php-coveralls": "*",
-        "codacy/coverage": "dev-master"
+        "phpunit\/phpunit": "*",
+        "vlucas\/phpdotenv": "*",
+        "codeclimate\/php-test-reporter": "dev-master",
+        "satooshi\/php-coveralls": "*",
+        "codacy\/coverage": "dev-master"
     },
     "autoload": {
-        "psr-4": {"Detain\\MyAdminVpsSoftaculous\\": "src/"}
+        "psr-4": {
+            "Detain\\MyAdminVpsSoftaculous\\": "src\/"
+        }
     }
 }
