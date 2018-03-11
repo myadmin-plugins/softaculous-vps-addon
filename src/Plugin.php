@@ -55,7 +55,7 @@ class Plugin {
 		$addon->setModule(self::$module)
 			->set_text('Softaculous')
 			->set_cost(VPS_SOFTACULOUS_COST)
-			->set_require_ip(true)
+			->set_require_ip(TRUE)
 			->setEnable([__CLASS__, 'doEnable'])
 			->setDisable([__CLASS__, 'doDisable'])
 			->register();
