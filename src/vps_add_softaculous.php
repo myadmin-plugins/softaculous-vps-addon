@@ -11,7 +11,8 @@
  * Adds Softaculous to a VPS
  * @return void
  */
-function vps_add_softaculous() {
+function vps_add_softaculous()
+{
 	function_requirements('class.AddServiceAddon');
 	$addon = new AddServiceAddon();
 	$addon->load(__FUNCTION__, 'Softaculous', 'vps', VPS_SOFTACULOUS_COST);

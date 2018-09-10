@@ -9,8 +9,8 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  *
  * @package Detain\MyAdminVpsSoftaculous
  */
-class Plugin {
-
+class Plugin
+{
 	public static $name = 'Softaculous VPS Addon';
 	public static $description = 'Allows selling of Softaculous License Addons to a VPS.  Softaculous is the leading Auto Installer having 426 great scripts, 1115 PHP Classes and we are still adding more. Softaculous is widely used in the Web Hosting industry and it has helped millions of users install applications by the click of a button. Softaculous Auto Installer easily integrates into leading Control Panels like cPanel, Plesk, DirectAdmin, InterWorx, H-Sphere.  More info at https://www.softaculous.com/';
 	public static $help = '';
@@ -20,13 +20,15 @@ class Plugin {
 	/**
 	 * Plugin constructor.
 	 */
-	public function __construct() {
+	public function __construct()
+	{
 	}
 
 	/**
 	 * @return array
 	 */
-	public static function getHooks() {
+	public static function getHooks()
+	{
 		return [
 			'function.requirements' => [__CLASS__, 'getRequirements'],
 			self::$module.'.load_addons' => [__CLASS__, 'getAddon'],
@@ -37,7 +39,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getRequirements(GenericEvent $event) {
+	public static function getRequirements(GenericEvent $event)
+	{
 		$loader = $event->getSubject();
 		$loader->add_page_requirement('vps_add_softaculous', '/../vendor/detain/myadmin-softaculous-vps-addon/src/vps_add_softaculous.php');
 	}
@@ -45,7 +48,8 @@ class Plugin {
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getAddon(GenericEvent $event) {
+	public static function getAddon(GenericEvent $event)
+	{
 		/**
 		 * @var \ServiceHandler $service
 		 */
@@ -55,7 +59,7 @@ class Plugin {
 		$addon->setModule(self::$module)
 			->set_text('Softaculous')
 			->set_cost(VPS_SOFTACULOUS_COST)
-			->set_require_ip(TRUE)
+			->set_require_ip(true)
 			->setEnable([__CLASS__, 'doEnable'])
 			->setDisable([__CLASS__, 'doDisable'])
 			->register();
@@ -67,7 +71,8 @@ class Plugin {
 	 * @param                $repeatInvoiceId
 	 * @param bool           $regexMatch
 	 */
-	public static function doEnable(\ServiceHandler $serviceOrder, $repeatInvoiceId, $regexMatch = FALSE) {
+	public static function doEnable(\ServiceHandler $serviceOrder, $repeatInvoiceId, $regexMatch = false)
+	{
 		$serviceInfo = $serviceOrder->getServiceInfo();
 		$settings = get_module_settings(self::$module);
 		require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
@@ -82,7 +87,8 @@ class Plugin {
 	 * @param                $repeatInvoiceId
 	 * @param bool           $regexMatch
 	 */
-	public static function doDisable(\ServiceHandler $serviceOrder, $repeatInvoiceId, $regexMatch = FALSE) {
+	public static function doDisable(\ServiceHandler $serviceOrder, $repeatInvoiceId, $regexMatch = false)
+	{
 		$serviceInfo = $serviceOrder->getServiceInfo();
 		$settings = get_module_settings(self::$module);
 		require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
@@ -96,15 +102,15 @@ class Plugin {
 		$headers .= 'MIME-Version: 1.0'.PHP_EOL;
 		$headers .= 'Content-type: text/html; charset=UTF-8'.PHP_EOL;
 		$headers .= 'From: '.$settings['TITLE'].' <'.$settings['EMAIL_FROM'].'>'.PHP_EOL;
-		admin_mail($subject, $email, $headers, FALSE, 'admin/vps_softaculous_canceled.tpl');
+		admin_mail($subject, $email, $headers, false, 'admin/vps_softaculous_canceled.tpl');
 	}
 
 	/**
 	 * @param \Symfony\Component\EventDispatcher\GenericEvent $event
 	 */
-	public static function getSettings(GenericEvent $event) {
+	public static function getSettings(GenericEvent $event)
+	{
 		$settings = $event->getSubject();
 		$settings->add_text_setting(self::$module, 'Addon Costs', 'vps_softaculous_cost', 'VPS Softaculous License:', 'This is the cost for purchasing a softaculous license on top of a VPS.', $settings->get_setting('VPS_SOFTACULOUS_COST'));
 	}
-
 }
