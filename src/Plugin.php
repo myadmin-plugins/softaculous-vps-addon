@@ -42,7 +42,7 @@ class Plugin
 	public static function getRequirements(GenericEvent $event)
 	{
 		$loader = $event->getSubject();
-		$loader->add_page_requirement('vps_add_softaculous', '/../vendor/detain/myadmin-softaculous-vps-addon/src/vps_add_softaculous.php');
+		$loader->add_page_requirement('vps_add_softaculous', '/../vendor/detain/softaculous-vps-addon/src/vps_add_softaculous.php');
 	}
 
 	/**
