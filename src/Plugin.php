@@ -79,9 +79,9 @@ class Plugin
         $serviceInfo = $serviceOrder->getServiceInfo();
         $settings = get_module_settings(self::$module);
         require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
-        myadmin_log(self::$module, 'info', self::$name.' Activation', __LINE__, __FILE__);
+        myadmin_log(self::$module, 'info', self::$name.' Activation', __LINE__, __FILE__, self::$module, $serviceInfo[$settings['PREFIX'].'_id']);
         $noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
-        myadmin_log(self::$module, 'info', json_encode($noc->buy($serviceInfo[$settings['PREFIX'].'_ip'], '1M', 2, $GLOBALS['tf']->accounts->cross_reference($serviceInfo[$settings['PREFIX'].'_custid']), 1)), __LINE__, __FILE__);
+        myadmin_log(self::$module, 'info', json_encode($noc->buy($serviceInfo[$settings['PREFIX'].'_ip'], '1M', 2, $GLOBALS['tf']->accounts->cross_reference($serviceInfo[$settings['PREFIX'].'_custid']), 1)), __LINE__, __FILE__, self::$module, $serviceInfo[$settings['PREFIX'].'_id']);
         $GLOBALS['tf']->history->add($settings['TABLE'], 'add_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
     }
 
@@ -95,9 +95,9 @@ class Plugin
         $serviceInfo = $serviceOrder->getServiceInfo();
         $settings = get_module_settings(self::$module);
         require_once __DIR__.'/../../../../include/licenses/license.functions.inc.php';
-        myadmin_log(self::$module, 'info', self::$name.' Deactivation', __LINE__, __FILE__);
+        myadmin_log(self::$module, 'info', self::$name.' Deactivation', __LINE__, __FILE__, self::$module, $serviceInfo[$settings['PREFIX'].'_id']);
         $noc = new \Detain\MyAdminSoftaculous\SoftaculousNOC(SOFTACULOUS_USERNAME, SOFTACULOUS_PASSWORD);
-        myadmin_log(self::$module, 'info', json_encode($noc->cancel('', $serviceInfo[$settings['PREFIX'].'_ip'])), __LINE__, __FILE__, self::$module);
+        myadmin_log(self::$module, 'info', json_encode($noc->cancel('', $serviceInfo[$settings['PREFIX'].'_ip'])), __LINE__, __FILE__, self::$module, $serviceInfo[$settings['PREFIX'].'_id']);
         $GLOBALS['tf']->history->add($settings['TABLE'], 'del_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
         $email = $settings['TBLNAME'].' ID: '.$serviceInfo[$settings['PREFIX'].'_id'].'<br>'.$settings['TBLNAME'].' Hostname: '.$serviceInfo[$settings['PREFIX'].'_hostname'].'<br>Repeat Invoice: '.$repeatInvoiceId.'<br>Description: '.self::$name.'<br>';
         $subject = $settings['TBLNAME'].' '.$serviceInfo[$settings['PREFIX'].'_id'].' Canceled Softaculous';
