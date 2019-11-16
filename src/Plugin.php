@@ -101,7 +101,7 @@ class Plugin
 		$GLOBALS['tf']->history->add($settings['TABLE'], 'del_softaculous', $serviceInfo[$settings['PREFIX'].'_id'], $serviceInfo[$settings['PREFIX'].'_ip'], $serviceInfo[$settings['PREFIX'].'_custid']);
 		$email = $settings['TBLNAME'].' ID: '.$serviceInfo[$settings['PREFIX'].'_id'].'<br>'.$settings['TBLNAME'].' Hostname: '.$serviceInfo[$settings['PREFIX'].'_hostname'].'<br>Repeat Invoice: '.$repeatInvoiceId.'<br>Description: '.self::$name.'<br>';
 		$subject = $settings['TBLNAME'].' '.$serviceInfo[$settings['PREFIX'].'_id'].' Canceled Softaculous';
-		(new MyAdmin\Mail())->adminMail($subject, $email, false, 'admin/vps_softaculous_canceled.tpl');
+		(new \MyAdmin\Mail())->adminMail($subject, $email, false, 'admin/vps_softaculous_canceled.tpl');
 	}
 
 	/**
