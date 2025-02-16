@@ -113,6 +113,8 @@ class Plugin
          * @var \MyAdmin\Settings $settings
          **/
         $settings = $event->getSubject();
+        $settings->setTarget('module');
         $settings->add_text_setting(self::$module, _('Addon Costs'), 'vps_softaculous_cost', _('VPS Softaculous License'), _('This is the cost for purchasing a softaculous license on top of a VPS.'), $settings->get_setting('VPS_SOFTACULOUS_COST'));
+        $settings->setTarget('global');
     }
 }
