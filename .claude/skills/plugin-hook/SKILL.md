@@ -1,6 +1,6 @@
 ---
 name: plugin-hook
-description: Adds a new Symfony EventDispatcher hook to src/Plugin.php. Use when user says 'add hook', 'register event', 'listen for event', or needs to respond to a new MyAdmin event. Generates the hook entry in Plugin::getHooks() and the corresponding static handler method accepting GenericEvent $event. Do NOT use for modifying src/vps_add_softaculous.php directly or for doEnable/doDisable addon lifecycle methods. NOTE: for a plugin's contract/behavioral tests (tests/ContractTest.php, the shared harness, composer myadmin:scaffold-tests) use the plugin-contract-tests skill instead — this skill's reflection-only guidance predates that harness.
+description: Adds a new Symfony EventDispatcher hook to src/Plugin.php. Use when user says 'add hook', 'register event', 'listen for event', or needs to respond to a new MyAdmin event. Generates the hook entry in Plugin::getHooks() and the corresponding static handler method accepting GenericEvent $event. Do NOT use for modifying src/vps_add_softaculous.php directly or for doEnable/doDisable addon lifecycle methods. For a plugin's contract or behavioral tests (tests/ContractTest.php, the shared harness, composer myadmin:scaffold-tests) use the plugin-contract-tests skill instead — this skill's reflection-only guidance predates that harness.
 ---
 <!-- myadmin-contract-harness-notice -->
 > ### ⚠️ Read this before the rest of the file
